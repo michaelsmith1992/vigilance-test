@@ -38,7 +38,7 @@ startBtn.addEventListener("click", function () {
     scoreBoard.innerHTML = `${workOutPercent()}%`;
     clickBtn.classList.remove("action");
     clickBtn.classList.add("flash");
-    state = Math.random() < 0.2 && checkTurns() ? true : false;
+    state = Math.random() < 0.1 && checkTurns() ? true : false;
     if (state) {
       clickBtn.classList.remove("flash");
       clickBtn.classList.add("action");
@@ -59,7 +59,7 @@ startBtn.addEventListener("click", function () {
     }
     store.push({ turn, state });
     turn++;
-  }, 1000);
+  }, 500);
   restartBtn.addEventListener("click", () => {
     reset();
     clearInterval(x);
@@ -68,8 +68,8 @@ startBtn.addEventListener("click", function () {
     scoreBoard.style.display = "none";
     clickBtn.style.display = "none";
     document.getElementById(
-        "timer"
-      ).innerHTML = `Click 'Start Timer' button to try again!`;
+      "timer"
+    ).innerHTML = `Click 'Start Timer' button to try again!`;
   });
 });
 
@@ -108,8 +108,9 @@ const displayTime = (distance) => {
 };
 
 const checkTurns = () => {
+  if (store.length < 10) return false;
   const check = store.filter((obj) => {
-    return obj.turn >= turn - 5 && obj.state === true;
+    return obj.turn >= turn - 10 && obj.state === true;
   });
   return !check.length;
 };
